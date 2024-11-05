@@ -1,3 +1,10 @@
+volumes:
+   postgres_db-data:
+
+networks:
+   webapp_network:
+      driver: bridge
+
 services:
    postgres_db:
       image:
@@ -6,6 +13,8 @@ services:
          POSTGRES_USER: admin
          POSTGRES_PASSWORD: admin_password
          POSTGRES_DB: admin
+      networks:
+         - webapp_network
       ports:
          - "5432:5432"
       volumes:
@@ -23,17 +32,16 @@ services:
          # dockerfile: ./WebApp/Dockerfile
          context: ./WebApp
          dockerfile: ./Dockerfile
+      networks:
+         - webapp_network
       ports:
          - "8111:8111"
       depends_on:
          postgres_db:
             condition: service_healthy
       environment:
-      - ASPNETCORE_ENVIRONMENT=Release
-      - ASPNETCORE_URLS=http://*:8111
-      - ConnectionStrings__DefaultConnection=Host=postgres_db;Port=5432;Database=admin;Username=admin;Password=admin_password
+         - ASPNETCORE_ENVIRONMENT=Release
+         - ASPNETCORE_URLS=http://*:8111
+         - ConnectionStrings__DefaultConnection=Host=postgres_db;Port=5432;Database=admin;Username=admin;Password=admin_password
       command: >
          sh -c "dotnet ef database update && dotnet WebApp.dll"
-
-volumes:
-   postgres_db-data:
