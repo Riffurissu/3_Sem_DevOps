@@ -1,0 +1,37 @@
+﻿@model WebApp.Models.Product
+
+@{
+    ViewData["Title"] = "Детали о товаре";
+}
+
+<h1>Детали о товаре</h1>
+
+<div>
+    @* <h4>Product</h4> *@
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            <strong>Артикул</strong>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Article)
+        </dd>
+        <dt class = "col-sm-2">
+            <strong>Название</strong>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            <strong>Цена</strong>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Изменить</a> |
+    <a asp-action="Index">Вернуться к списку товаров</a> |
+    <a asp-action="Delete" asp-route-id="@Model?.Id">Удалить</a>
+</div>
