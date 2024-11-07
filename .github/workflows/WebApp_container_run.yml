@@ -14,5 +14,3 @@ jobs:
         uses: actions/checkout@v4
       - name: Build and run the docker container
         run:  sh -c "docker compose up --build"
-      - name: Check container
-        run: sh -c "docker exec"
