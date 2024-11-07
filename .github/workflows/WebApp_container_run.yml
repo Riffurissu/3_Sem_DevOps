@@ -12,4 +12,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build and run the docker container
-      run:  sh -c "docker-compose up --build"
+      run:  sh -c "docker compose up --build"
