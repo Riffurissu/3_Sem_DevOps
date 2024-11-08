@@ -12,25 +12,30 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
       - name: Show host ip
         run: ip a
       - name: Build containers
         run: docker compose build
+        
       - name: Run containers in the background
         run: docker compose up --detach
+        
       - name: Check if containers have started successfully
         run: |
           for i in {1..30}; 
             do
-              if curl -s http://localhost:8111 > /dev/null; then
-                echo "Контейнеры запущены!"
-                exit 0
-              fi
+              if curl -s http://localhost:8111 > /dev/null; 
+                then
+                  echo "Контейнеры запущены!"
+                  exit 0
+                fi
               echo "Ожидание запуска контейнеров..."
               sleep 2
             done
           echo "Истекло время ожидания запуска контейнеров"
           exit 1
+        
       - name: Stopping and deleting containers
         if: always()
         run: |
