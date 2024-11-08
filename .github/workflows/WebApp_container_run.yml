@@ -16,7 +16,7 @@ jobs:
         # run:  sh -c "docker compose up --build"
         run: ip a
       - name: Build containers
-        run: docker compose --build
+        run: docker compose build
       - name: Run containers in the background
         run: docker compose uo --detach
       - name: Check if containers have started successfully
