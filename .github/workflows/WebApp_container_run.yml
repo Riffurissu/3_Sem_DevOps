@@ -1,4 +1,4 @@
-name: WebApp_container_CI
+name: WebApp_containers_CI
 
 on:
   push:
@@ -12,6 +12,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Build and run the docker container
+      - name: Show host ip
         # run:  sh -c "docker compose up --build"
-        run:  sh -c "ip a"
+        run: ip a
+      - name: Build containers
+        run: docker compose --build
+      - name: Run containers in the background
+        run: docker compose uo --detach
+      - name: Check if containers have started successfully
+        run:
+          for i in {1..30}; do
+            if curl -s http://localhost:8080 > /dev/null; then
+              echo "Контейнеры запущены!"
+              exit 0
+            fi
+            echo "Ожидание запуска контейнеров..."
+            sleep 2
+            done
+          echo "Истекло время ожидания запуска контейнеров"
+          exit 1
+      - name: Stopping and deleting containers
+        if: always()
+        run:
+          docker stop my-app-container
+          docker rm my-app-container
