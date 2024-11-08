@@ -2,9 +2,11 @@ name: WebApp_containers_CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: 
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches: 
+      - master
 
 jobs:
   build:
@@ -29,7 +31,7 @@ jobs:
                 then
                   echo "Контейнеры запущены!"
                   exit 0
-                fi
+              fi
               echo "Ожидание запуска контейнеров..."
               sleep 2
             done
