@@ -34,5 +34,5 @@ jobs:
       - name: Stopping and deleting containers
         if: always()
         run: |
-          docker stop 3_sem_devops
+          docker compose stop
           docker system prune -af
