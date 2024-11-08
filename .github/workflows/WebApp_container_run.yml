@@ -22,7 +22,7 @@ jobs:
       - name: Check if containers have started successfully
         run:
           for i in {1..30}; do
-            if curl -s http://localhost:8080 > /dev/null; then
+            if curl -s http://localhost:8111 > /dev/null; then
               echo "Контейнеры запущены!"
               exit 0
             fi
@@ -34,5 +34,5 @@ jobs:
       - name: Stopping and deleting containers
         if: always()
         run:
-          docker stop my-app-container
-          docker rm my-app-container
+          docker stop 3_sem_devops
+          docker system prune --all
