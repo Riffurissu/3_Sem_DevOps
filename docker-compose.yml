@@ -8,7 +8,7 @@ networks:
 services:
    postgres_db:
       image:
-         postgres:latest
+         postgres:17
       environment:
          POSTGRES_USER: admin
          POSTGRES_PASSWORD: admin_password
